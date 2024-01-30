@@ -6,39 +6,40 @@ class TimerApp:
     def __init__(self, master):
         self.master = master
         self.master.title("Таймер")
-        self.master.configure(bg='lightblue')
 
-        self.minl = Label(master, text="Минуты:")
-        self.minl.pack()
-        self.mine = Entry(master)
-        self.mine.pack()
 
-        self.secl = Label(master, text="Секунды:")
-        self.secl.pack()
-        self.sece= Entry(master)
-        self.sece.pack()
+        self.min_l = Label(master, text="Минуты:")
+        self.min_l.pack()
+        self.min_e = Entry(master)
+        self.min_e.pack()
 
-        start_but = Button(master, text="Начало", command=self.start_timer)
-        start_but.pack()
+        self.sec_l = Label(master, text="Секунды:")
+        self.sec_l.pack()
+        self.sec_e = Entry(master)
+        self.sec_e.pack()
 
-def start_timer(self):
-    try:
-        min = int(self.mine.get())
-        sec = int(self.sece.get())
-        total_sec = min * 60 + sec
+        start_button = Button(master, text="Начать", command=self.start_timer)
+        start_button.pack()
 
-        while total_sec > 0:
-            minutes, sec = divmod(total_sec, 60)
-            timeformat = '{:02d}:{:02d}'.format(minutes, sec)
-            self.master.title("Таймер: " + timeformat)
-            self.master.update()
-            time.sleep(1)
-            total_sec-=1
+    def start_timer(self):
+        try:
+            min = int(self.min_e.get())
+            seconds = int(self.sec_e.get())
+            total_seconds = min * 60 + seconds
 
-    messagebox.showinfo("Таймер завершен", "Время окончено")
-    expect ValueError:
-messagebox.showerror("Неправильно введены данные", "Ввидите цифры данные.")
+            while total_seconds > 0:
+                min, sec = divmod(total_seconds, 60)
+                timeformat = '{:02d}:{:02d}'.format(min, sec)
+                self.master.title("Время: " + timeformat)
+                self.master.update()
+                time.sleep(1)
+                total_seconds -= 1
 
+            messagebox.showinfo("Таймер завершен", "Время окончено!!")
+
+
+        except ValueError:
+            messagebox.showerror("Неправильно введены данные", "Ввидите верные данные")
 
 root = Tk()
 app = TimerApp(root)
